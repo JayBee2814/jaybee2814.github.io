@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Test Post"
-categories: test update
+tags: test update
 author: JayBee
 ---
 
