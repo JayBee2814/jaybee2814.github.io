@@ -1,0 +1,8 @@
+---
+layout: post
+title:  "Test Post"
+categories: test update
+author: JayBee
+---
+
+Ok so this is just a test of making a post and seeing how everything fits together. Can you mix MD and HTML? Probably not....hmm.
