@@ -24,3 +24,7 @@
 .links-social a:visited{
    color: #22a7bf !important;
 }
+
+#posts {
+   flex-wrap: nowrap !important;
+}
