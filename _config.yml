@@ -17,9 +17,8 @@ title: JayBee
 email: jaybee28141@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Basically just me shouting into the void and posting about stuff I like.
-  I also kinda use it as a portfolio I guess?
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://jaybee2814.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jaybee2814
 github_username:  jaybee2814
 
@@ -28,6 +27,13 @@ markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
+
+plugins:
+  - jekyll-last-modified-at
+
+# Optional. The default date format, used if none is specified in the tag.
+last-modified-at:
+    date-format: '%d-%b-%y'
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
