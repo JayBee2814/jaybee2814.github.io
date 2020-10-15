@@ -1,3 +1,2 @@
 # Portfolio/Personal Website
-Building a website, it'll be here soon I suppose
-this is the JayBee site btw
+What the hell do you want me to say? It's a site I made.
