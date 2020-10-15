@@ -6,38 +6,39 @@ layout: default
 
 
 <div class="container-fluid">
-      <div class="row" id="posts">
-        <div class="d-none d-md-block">
-          <ul>
-            {% for post in site.posts %}
-              <li>
-                <a href="{{ post.url }}">{{ post.title }}</a>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
+  <div class="row" id="posts">
+    <div class="d-none d-md-block">
+      <ul>
+        {% for post in site.posts %}
+          <li>
+            <a href="{{ post.url }}">{{ post.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
 
         
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"><div style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;" class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-          
-            <div class="jumbotron jumbotron-fluid">
-                <div class="container">
-                  <!-- Make this text smaller at a certain device size -->
-                    <h1 class="display-2">{{ page.title }}</h1>
-                    <p class="lead text-muted">Originally Published {{ page.date | date: "%m/%d/%Y" }} - Written by {{ page.author }}</p>
-                    {% if page.last-modified %}
-                    <p class="lead text-muted">This page was updated on {{page.last-modified}} - Jump to update <a href="#addendum">here</a></p>
-                    {% else %}
-                    {% endif %}
-                </div>
-            </div>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"><div style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;" class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+      
+        <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                {{ content }}
+              <!-- Make this text smaller at a certain device size -->
+                <h1 class="display-2">{{ page.title }}</h1>
+                <p class="lead text-muted">Originally Published {{ page.date | date: "%m/%d/%Y" }} - Written by {{ page.author }}</p>
+                {% if page.last-modified %}
+                  <p class="lead text-muted">This page was updated on {{page.last-modified}} - Jump to update <a href="#addendum">here</a></p>
+                {% else %}
+                  <!-- Just keep it blank -->
+                {% endif %}
             </div>
-            <div class="container d-sm-none">
-                <a href="/posts-index">Return to Post Index</a>
-            </div>
-          
-        </main>
-      </div>
+        </div>
+        <div class="container">
+            {{ content }}
+        </div>
+        <div class="container d-sm-none">
+            <a href="/posts-index">Return to Post Index</a>
+        </div>
+      
+    </main>
   </div>
+</div>

@@ -28,3 +28,9 @@
 #posts {
    flex-wrap: nowrap !important;
 }
+
+@media (max-width: 992px) { 
+   .display-2 {
+      font-size: 3.5rem;
+   }
+}
