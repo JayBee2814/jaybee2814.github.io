@@ -1,5 +1,27 @@
 /* style.css */
+.navbar-brand {
+   margin-left: 42rem;
+}
 
+.navbar-nav {
+   margin-right: 42rem;
+}
+
+canvas {
+  display: block;
+  /* vertical-align: bottom; */
+}
+
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}
 /* Smart Scroll */
 .smart-scroll{
   position: fixed;
@@ -28,6 +50,12 @@
 #posts {
    flex-wrap: nowrap !important;
 }
+
+#content{
+   z-index: 100;
+}
+
+
 
 @media (max-width: 992px) { 
    .display-2 {

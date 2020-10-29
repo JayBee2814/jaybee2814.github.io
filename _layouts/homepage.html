@@ -33,6 +33,11 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
+        <!-- Font Awesome -->
+    <script 
+    src="https://kit.fontawesome.com/35c961874c.js" 
+    crossorigin="anonymous"
+    ></script>
     <!-- Custom styles for this template -->
     <link href={{ "../assets/css/cover.css" | relative_url}} rel="stylesheet">
   </head>
@@ -45,14 +50,14 @@
           <a href="/">JB</a>
         </h3>
         <nav class="nav nav-masthead justify-content-center">
-          <a class="nav-link" href="https://twitter.com/jaybee2814" target="_blank" rel="noopener noreferrer">Twitter</a>
-          <a class="nav-link" href="https://www.twitch.tv/jaybee_tv/" target="_blank" rel="noopener noreferrer">Twitch</a>
-          <a class="nav-link" href="https://steamcommunity.com/id/jaybee2814/" target="_blank" rel="noopener noreferrer">Steam</a>
+          <a class="nav-link" href="/projects">Projects</a>
+          <a class="nav-link" href="/about">About</a>
+          <!-- <a class="nav-link" href="/blog">Blog</a> -->
         </nav>
       </div>
     </header>
     {{ content }}
-    {% include cover-footer.html %}
+    {% include home-footer.html %}
     </div>
     <div id="particles-js"></div>
     {% include cover-scripts.html %}
