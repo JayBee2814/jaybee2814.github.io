@@ -5,6 +5,7 @@ tags: blog
 catagories:
 author: JayBee
 last-modified:
+hidden:
 ---
 ## I Hate Ads
 I mean who doesn't though?

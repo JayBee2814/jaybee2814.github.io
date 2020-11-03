@@ -5,6 +5,7 @@ tags: blog
 catagories: personal
 author: JayBee
 last-modified:
+hidden:
 ---
 
 ## This one will be short.

@@ -5,6 +5,7 @@ tags: blog
 catagories: personal
 author: JayBee
 last-modified:
+hidden:
 ---
 ## Don't Get Me Wrong
 I love living in my apartment. I've been in it since Feb of 2020 and have made a pretty solid little home out of it. I mean yea the kitchen is weirdly oriented and is a bit of a struggle to organize in a logical manner, and sure the living room isn't the easiest to work with when it comes to furniture placement in my opinion...oh and all the appliances suck.Hot tip, the clothes dryer in your home is usually the largest energy sink, mine adds a solid $15 to the electricity bill. But it does have a pretty nice study off the living room that I use as a man cave gaming center, and the bathroom is massive. As with anything theres pros and cons and up till now I've felt the pros have vastly outweighed the cons.

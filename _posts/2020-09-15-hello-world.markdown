@@ -5,6 +5,7 @@ tags: blog
 author: JayBee
 permalink: /first
 last-modified:
+hidden:
 ---
 
 ### First Post 
