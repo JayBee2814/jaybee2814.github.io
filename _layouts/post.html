@@ -7,12 +7,15 @@ layout: default
 
 <div class="container-fluid">
   <div class="row" id="posts">
-    <div class="d-none d-md-block">
+    <div class="d-none d-md-block mt-5">
+      <h1 class="text-center">All Posts</h1>
       <ul>
         {% for post in site.posts %}
-          <li>
-            <a href="{{ post.url }}">{{ post.title }}</a>
-          </li>
+          {% unless post.hidden %}
+            <li>
+              <a href="{{ post.url }}">{{ post.title }}</a>
+            </li>
+          {% endunless %}
         {% endfor %}
       </ul>
     </div>
