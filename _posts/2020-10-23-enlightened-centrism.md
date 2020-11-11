@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "Not the Same Coin"
-tags: blog
-catagories: personal
+tags: blog politics
+categories: politics
 author: JayBee
 last-modified:
 hidden:

@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "Secret Work PiHole"
-tags: blog
-catagories:
+tags: blog pi pihole rant
+categories: project
 author: JayBee
 last-modified:
 hidden:

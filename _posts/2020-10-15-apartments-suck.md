@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "Apartments Suck"
-tags: blog
-catagories: personal
+tags: blog rant
+categories: blog
 author: JayBee
 last-modified:
 hidden:

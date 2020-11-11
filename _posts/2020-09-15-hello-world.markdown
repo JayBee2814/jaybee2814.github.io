@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Hello World!"
+categories: blog
 tags: blog
 author: JayBee
 permalink: /first
