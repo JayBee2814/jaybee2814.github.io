@@ -14,9 +14,11 @@ permalink: /blog
     <div class="col-lg-12">
       <ul>
         {% for post in site.posts %}
-        <li>
-          <a href="{{ post.url }}">{{ post.title }}</a>
-        </li>
+          {% unless post.hidden %}
+            <li>
+              <a href="{{ post.url }}">{{ post.title }}</a>
+            </li>
+          {% endunless %}
         {% endfor %}
       </ul>
     </div>
