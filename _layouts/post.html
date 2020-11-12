@@ -2,43 +2,67 @@
 layout: default
 ---
 
-<div class="container-fluid">
-  <div class="row" id="posts">
-    <div class="d-none d-md-block mt-5 pl-5">
-      <h1 class="text-center">All Posts</h1>
-      <ul>
-        {% for post in site.posts %}
-          {% unless post.hidden %}
-            <li>
-              <a href="{{ post.url }}">{{ post.title }}</a>
-            </li>
-          {% endunless %}
-        {% endfor %}
-      </ul>
+<div class="wrapper">
+  <nav id="sidebar">
+    <div class="sidebar-header">
+      <h3>All Posts</h3>
     </div>
 
+    <ul>
+      {% for post in site.posts %}
+        {% unless post.hidden %}
+          <li>
+            <a href="{{ post.url }}">{{ post.title }}</a>
+          </li>
+        {% endunless %}
+      {% endfor %}
+    </ul>
+  </nav>
+
+  <div class="container-fluid px-0"> 
+      <main role="main" class="px-0"><div style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;" class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+        <div id="content">
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+              <div class="container-fluid">
+
+                  <button type="button" id="sidebarCollapse" class="btn btn-info">
+                      <i class="fas fa-align-left"></i>
+                      <span>Toggle Sidebar</span>
+                  </button>
+
+              </div>
+          </nav>
+        </div>
+          <div class="jumbotron jumbotron-fluid">
+              <div class="container">
+                <!-- Make this text smaller at a certain device size -->
+                  <h1 class="display-2">{{ page.title }}</h1>
+                  <p class="lead text-muted">Originally Published {{ page.date | date: "%m/%d/%Y" }} - Written by {{ page.author }}</p>
+                  {% if page.last-modified %}
+                    <p class="lead text-muted">This page was updated on {{page.last-modified}} - Jump to update <a href="#addendum">here</a></p>
+                  {% else %}
+                    <!-- Just keep it blank -->
+                  {% endif %}
+              </div>
+          </div>
+          <div class="container">
+              {{ content }}
+          </div>
+          <div class="container d-sm-none">
+              <a href="/posts-index">Return to Post Index</a>
+          </div>
         
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"><div style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;" class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-      
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-              <!-- Make this text smaller at a certain device size -->
-                <h1 class="display-2">{{ page.title }}</h1>
-                <p class="lead text-muted">Originally Published {{ page.date | date: "%m/%d/%Y" }} - Written by {{ page.author }}</p>
-                {% if page.last-modified %}
-                  <p class="lead text-muted">This page was updated on {{page.last-modified}} - Jump to update <a href="#addendum">here</a></p>
-                {% else %}
-                  <!-- Just keep it blank -->
-                {% endif %}
-            </div>
-        </div>
-        <div class="container">
-            {{ content }}
-        </div>
-        <div class="container d-sm-none">
-            <a href="/posts-index">Return to Post Index</a>
-        </div>
-      
-    </main>
+      </main>
   </div>
 </div>
+
+<!-- <h1 class="text-center">All Posts</h1>
+<ul>
+{% for post in site.posts %}
+{% unless post.hidden %}
+<li>
+<a href="{{ post.url }}">{{ post.title }}</a>
+</li>
+{% endunless %}
+{% endfor %}
+</ul> -->
