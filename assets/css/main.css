@@ -21,6 +21,7 @@ ul {
     max-width: 250px;
     min-height: 100vh;
     transition: all 0.3s;
+    background: #000;
 }
 
 #sidebar.active {
@@ -107,7 +108,13 @@ ul {
    color: black !important;
 }
 
+.links-sidebar a{
+   color: #FFF;
+}
 
+.links-sidebar a:visited{
+   color: #FFF;
+}
 
 .navbar-dark .navbar-brand:hover,
 .navbar-dark .navbar-brand:focus {

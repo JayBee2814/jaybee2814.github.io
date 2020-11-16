@@ -3,11 +3,12 @@ layout: default
 ---
 
 <div class="wrapper">
-  <nav id="sidebar">
+  <nav id="sidebar" class="pl-4 pt-4">
     <div class="sidebar-header">
-      <h3>All Posts</h3>
+      <h3 class="header-text text-white">All Posts</h3>
     </div>
 
+    <div class="links-sidebar">
     <ul>
       {% for post in site.posts %}
         {% unless post.hidden %}
@@ -17,6 +18,8 @@ layout: default
         {% endunless %}
       {% endfor %}
     </ul>
+    </div>
+
   </nav>
 
   <div class="container-fluid px-0"> 
@@ -49,21 +52,10 @@ layout: default
           <div class="container">
               {{ content }}
           </div>
-          <div class="container d-sm-none">
+          <!-- <div class="container d-sm-none">
               <a href="/posts-index">Return to Post Index</a>
-          </div>
+          </div> -->
         
       </main>
   </div>
 </div>
-
-<!-- <h1 class="text-center">All Posts</h1>
-<ul>
-{% for post in site.posts %}
-{% unless post.hidden %}
-<li>
-<a href="{{ post.url }}">{{ post.title }}</a>
-</li>
-{% endunless %}
-{% endfor %}
-</ul> -->
