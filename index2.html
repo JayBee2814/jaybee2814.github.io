@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaga Ranking Game</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #7a0000 0%, #030005 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .setup-screen, .game-screen, .results-screen {
+            display: none;
+        }
+        
+        .setup-screen.active, .game-screen.active, .results-screen.active {
+            display: block;
+        }
+        
+        .difficulty-options {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .difficulty-btn {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .difficulty-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .warning {
+            background: rgba(255, 152, 0, 0.3);
+            border: 2px solid rgba(255, 152, 0, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .comparison {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .items {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .item-btn {
+            padding: 20px 30px;
+            border: none;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            min-width: 200px;
+        }
+        
+        .item-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .results {
+            margin: 20px 0;
+        }
+        
+        .ranking-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .file-input {
+            margin: 20px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        
+        input[type="file"] {
+            color: white;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            resize: vertical;
+        }
+        
+        textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gaga Song Ranking Game</h1>
+        
+        <!-- Setup Screen -->
+        <div class="setup-screen active">
+            <h2>Setup Your Items</h2>
+            
+            <h3>Select Difficulty:</h3>
+            <div class="difficulty-options">
+                <button class="difficulty-btn" data-mode="easy">
+                    <strong>Easy</strong> - 3 comparisons per item<br>
+                    <small>Fewer comparisons, faster</small>
+                </button>
+                <button class="difficulty-btn" data-mode="medium">
+                    <strong>Medium</strong> - 10 comparisons per item<br>
+                    <small>Balanced approach</small>
+                </button>
+                <button class="difficulty-btn" data-mode="hard">
+                    <strong>Hard</strong> - 50 comparisons per item<br>
+                    <small>More comparisons, more accurate</small>
+                </button>
+                <button class="difficulty-btn" data-mode="complete">
+                    <strong>Complete</strong> - ALL unique combinations<br>
+                    <small>Most accurate results</small>
+                </button>
+            </div>
+            
+            <div class="warning" id="completeWarning" style="display: none;">
+                <strong>⚠️ WARNING:</strong> Complete mode tests every possible pair exactly once.<br>
+                With N items, this requires N×(N-1)/2 comparisons.<br>
+                <strong>Examples:</strong> 10 items = 45 comparisons, 20 items = 190 comparisons, 50 items = 1,225 comparisons!
+            </div>
+        </div>
+        
+        <!-- Game Screen -->
+        <div class="game-screen">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div id="progressText">Progress: 0/0 (0%)</div>
+            
+            <div class="comparison">
+                <h2>Which do you prefer?</h2>
+                <div class="items">
+                    <button class="item-btn" id="item1" onclick="choose(1)"></button>
+                    <button class="item-btn" id="item2" onclick="choose(2)"></button>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="tie()">Tie</button>
+                    <button class="action-btn" onclick="skip()">Skip</button>
+                    <button class="action-btn" onclick="undo()">Undo</button>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="restart()">Start Over</button>
+                </div>
+
+            </div>
+        </div>
+        
+        <!-- Results Screen -->
+        <div class="results-screen">
+            <h2>🏆 Final Rankings</h2>
+            <div class="results" id="finalResults"></div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="action-btn" onclick="downloadResults()">Download CSV</button>
+                <button class="action-btn" onclick="restart()">Start Over</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const items = [
+            "1000 Doves",
+            "911",
+            "Abracadabra",
+            "Alejandro",
+            "Alice",
+            "Always Remember Us This Way",
+            "Americano",
+            "Angel Down",
+            "Applause",
+            "Artpop",
+            "Aura",
+            "A-Yo",
+            "Babylon",
+            "Bad Kids",
+            "Bad Romance",
+            "Beautiful, Dirty, Rich",
+            "Before I Cry",
+            "Black Jesus + Amen Fashion",
+            "Blade of Grass",
+            "Bloody Mary",
+            "Born This Way",
+            "Boys Boys Boys",
+            "Brown Eyes",
+            "Come to Mama",
+            "Dance in the Dark",
+            "Dancin' in Circles",
+            "Diamond Heart",
+            "Die with a Smile",
+            "Diggin' My Grave",
+            "Disco Heaven",
+            "Disease",
+            "Do What U Want",
+            "Donatella",
+            "Don't Call Tonight",
+            "Dope",
+            "Eh, Eh (Nothing Else I Can Say)",
+            "Electric Chapel",
+            "Enigma",
+            "Fashion of His Love",
+            "Fashion!",
+            "Free Woman",
+            "Fun Tonight",
+            "G.U.Y.",
+            "Garden of Eden",
+            "Government Hooker",
+            "Grigio Girls",
+            "Gypsy",
+            "Hair",
+            "Hair Body Face",
+            "Heal Me",
+            "Heavy Metal Lover",
+            "Hey Girl",
+            "Highway Unicorn (Road to Love)",
+            "Hold My Hand",
+            "How Bad Do U Want Me",
+            "I Don't Know What Love Is",
+            "I Like It Rough",
+            "I'll Never Love Again (Extended Version)",
+            "Is That Alright?",
+            "Jewels N' Drugs",
+            "Joanne",
+            "John Wayne",
+            "Judas",
+            "Just Another Day",
+            "Just Dance",
+            "Killah",
+            "La Vie en rose",
+            "Look What I Found",
+            "LoveDrug",
+            "LoveGame",
+            "Manicure",
+            "Marry the Night",
+            "Mary Jane Holland",
+            "Million Reasons",
+            "Money Honey",
+            "Monster",
+            "Paparazzi",
+            "Paper Gangsta",
+            "Perfect Celebrity",
+            "Perfect Illusion",
+            "Plastic Doll",
+            "Poker Face",
+            "Rain on Me",
+            "Replay",
+            "Scheiße",
+            "Sexxx Dreams",
+            "Shadow of a Man",
+            "Shallow",
+            "Sine from Above",
+            "Sinner's Prayer",
+            "So Happy I Could Die",
+            "Sour Candy",
+            "Speechless",
+            "Starstruck",
+            "Stupid Love",
+            "Summerboy",
+            "Swine",
+            "Teeth",
+            "Telephone",
+            "The Beast",
+            "The Cure",
+            "The Edge of Glory",
+            "The Fame",
+            "The Queen",
+            "Til It Happens to You",
+            "Vanish into You",
+            "Venus",
+            "Why Did You Do That?",
+            "You and I",
+            "Zombieboy"
+        ];
+        let eloScores = {};
+        let pairs = [];
+        let currentPair = null;
+        let history = [];
+        let completed = 0;
+        let totalPairs = 0;
+        let maxComparisons = 10;
+        let useCompleteMode = false;
+        const K_FACTOR = 32;
+
+        // Setup event listeners
+        document.querySelectorAll('.difficulty-btn').forEach(btn => {
+            btn.addEventListener('click', selectDifficulty);
+        });
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const csv = e.target.result;
+                    const lines = csv.split('\n').map(line => line.trim()).filter(line => line);
+                    document.getElementById('itemsText').value = lines.join('\n');
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        function selectDifficulty(event) {
+            const mode = event.currentTarget.dataset.mode;
+            
+            if (items.length < 2) {
+                alert('Please enter at least 2 items!');
+                return;
+            }
+
+            // Initialize Elo scores
+            eloScores = {};
+            items.forEach(item => eloScores[item] = 1000);
+
+            // Set up game parameters
+            switch(mode) {
+                case 'easy':
+                    maxComparisons = 3;
+                    useCompleteMode = false;
+                    break;
+                case 'medium':
+                    maxComparisons = 10;
+                    useCompleteMode = false;
+                    break;
+                case 'hard':
+                    maxComparisons = 50;
+                    useCompleteMode = false;
+                    break;
+                case 'complete':
+                    useCompleteMode = true;
+                    const totalComparisons = items.length * (items.length - 1) / 2;
+                    if (!confirm(`Complete mode will require ${totalComparisons} comparisons. Continue?`)) {
+                        return;
+                    }
+                    break;
+            }
+
+            generatePairs();
+            startGame();
+        }
+
+        function generatePairs() {
+            pairs = [];
+            
+            if (useCompleteMode) {
+                // Generate all unique combinations
+                for (let i = 0; i < items.length; i++) {
+                    for (let j = i + 1; j < items.length; j++) {
+                        pairs.push([items[i], items[j]]);
+                    }
+                }
+            } else {
+                // Generate random limited pairings
+                const comparisons = {};
+                items.forEach(item => comparisons[item] = new Set());
+                
+                const pairSet = new Set();
+                
+                items.forEach(item => {
+                    while (comparisons[item].size < maxComparisons) {
+                        const opponent = items[Math.floor(Math.random() * items.length)];
+                        if (opponent !== item && !comparisons[item].has(opponent)) {
+                            comparisons[item].add(opponent);
+                            comparisons[opponent].add(item);
+                            
+                            const pairKey = [item, opponent].sort().join('|');
+                            if (!pairSet.has(pairKey)) {
+                                pairSet.add(pairKey);
+                                pairs.push([item, opponent]);
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Shuffle pairs
+            for (let i = pairs.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
+            }
+            
+            totalPairs = pairs.length;
+            completed = 0;
+            history = [];
+        }
+
+        function startGame() {
+            document.querySelector('.setup-screen').classList.remove('active');
+            document.querySelector('.game-screen').classList.add('active');
+            showNextPair();
+        }
+
+        function showNextPair() {
+            if (currentPair === null) {
+                if (pairs.length === 0) {
+                    showResults();
+                    return;
+                }
+                currentPair = pairs.pop();
+            }
+            
+            const [item1, item2] = currentPair;
+            document.getElementById('item1').textContent = item1;
+            document.getElementById('item2').textContent = item2;
+            
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const percentage = totalPairs > 0 ? (completed / totalPairs) * 100 : 0;
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = 
+                `Progress: ${completed}/${totalPairs} (${percentage.toFixed(1)}%)`;
+        }
+
+        function expectedScore(ratingA, ratingB) {
+            return 1 / (1 + Math.pow(10, (ratingB - ratingA) / 400));
+        }
+
+        function updateElo(winner, loser, isTie = false) {
+            const oldWinnerScore = eloScores[winner];
+            const oldLoserScore = eloScores[loser];
+            
+            const expectedWinner = expectedScore(oldWinnerScore, oldLoserScore);
+            const expectedLoser = expectedScore(oldLoserScore, oldWinnerScore);
+            
+            const scoreWinner = isTie ? 0.5 : 1.0;
+            const scoreLoser = isTie ? 0.5 : 0.0;
+            
+            eloScores[winner] += K_FACTOR * (scoreWinner - expectedWinner);
+            eloScores[loser] += K_FACTOR * (scoreLoser - expectedLoser);
+            
+            return [oldWinnerScore, oldLoserScore];
+        }
+
+        function choose(choice) {
+            const [item1, item2] = currentPair;
+            const winner = choice === 1 ? item1 : item2;
+            const loser = choice === 1 ? item2 : item1;
+            
+            const oldScores = updateElo(winner, loser);
+            history.push(['win', winner, loser, oldScores[0], oldScores[1]]);
+            
+            completed++;
+            currentPair = null;
+            showNextPair();
+        }
+
+        function tie() {
+            const [item1, item2] = currentPair;
+            const oldScores = updateElo(item1, item2, true);
+            history.push(['tie', item1, item2, oldScores[0], oldScores[1]]);
+            
+            completed++;
+            currentPair = null;
+            showNextPair();
+        }
+
+        function skip() {
+            const [item1, item2] = currentPair;
+            history.push(['skip', item1, item2, null, null]);
+            
+            completed++;
+            currentPair = null;
+            showNextPair();
+        }
+
+        function undo() {
+            if (history.length === 0) {
+                alert('Nothing to undo!');
+                return;
+            }
+            
+            // Put current pair back if we haven't processed it
+            if (currentPair) {
+                pairs.push(currentPair);
+                currentPair = null;
+            }
+            
+            const lastAction = history.pop();
+            const [actionType, item1, item2, oldScore1, oldScore2] = lastAction;
+            
+            if (actionType === 'win' || actionType === 'tie') {
+                eloScores[item1] = oldScore1;
+                eloScores[item2] = oldScore2;
+            }
+            
+            currentPair = [item1, item2];
+            completed--;
+            showNextPair();
+        }
+
+        function showResults() {
+            document.querySelector('.game-screen').classList.remove('active');
+            document.querySelector('.results-screen').classList.add('active');
+            
+            const rankings = Object.entries(eloScores)
+                .sort(([,a], [,b]) => b - a);
+            
+            const resultsDiv = document.getElementById('finalResults');
+            resultsDiv.innerHTML = rankings.map(([item, score], index) => 
+                `<div class="ranking-item">
+                    <span><strong>#${index + 1}</strong> ${item}</span>
+                    <span>Elo: ${Math.round(score)}</span>
+                </div>`
+            ).join('');
+        }
+
+        function downloadResults() {
+            const rankings = Object.entries(eloScores)
+                .sort(([,a], [,b]) => b - a);
+            
+            const csv = 'Rank,Item,Elo\n' + 
+                rankings.map(([item, score], index) => 
+                    `${index + 1},"${item}",${Math.round(score)}`
+                ).join('\n');
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'elo_rankings.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function restart() {
+            document.querySelector('.results-screen').classList.remove('active');
+            document.querySelector('.setup-screen').classList.add('active');
+            document.querySelector('.game-screen').classList.remove('active');
+            
+            // Reset all data
+            eloScores = {};
+            pairs = [];
+            currentPair = null;
+            history = [];
+            completed = 0;
+            totalPairs = 0;
+            
+        }
+    </script>
+</body>
+</html>
